@@ -14,7 +14,7 @@
         android:textColor="#FFFFFF"
         android:textSize="28sp"
         android:textStyle="bold"
-        android:layout_bottom="30dp"/>
+        android:layout_marginBottom="30dp"/>
 
     <EditText
         android:id="@+id/editUsername"
@@ -34,7 +34,6 @@
         android:layout_gravity="start"
         android:layout_marginBottom="5dp"/>
 
-    <!-- Menu de escolha de versão -->
     <Spinner
         android:id="@+id/spinnerVersoes"
         android:layout_width="match_parent"
