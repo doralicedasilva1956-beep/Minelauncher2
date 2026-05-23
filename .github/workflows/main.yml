@@ -1,0 +1,45 @@
+name: Build Minelauncher2
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout do código
+      uses: actions/checkout@v4
+
+    - name: Configurar Java 17
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'zulu'
+        java-version: '17'
+        cache: 'gradle'
+
+    - name: Configurar Android SDK e NDK
+      uses: android-actions/setup-android@v3
+      with:
+        # Instala o SDK base, ferramentas de build e suporte a 32-bits (armeabi-v7a)
+        cmdline-tools-version: '8512546'
+        log-accepted-android-sdk-licenses: true
+
+    - name: Instalar NDK e CMake específicos
+      run: |
+        sdkmanager --install "ndk;25.1.8937393" "cmake;3.22.1"
+
+    - name: Dar permissão de execução ao Gradle Wrapper
+      run: chmod +x ./gradlew
+
+    - name: Compilar APK (Release)
+      run: ./gradlew assembleRelease
+
+    - name: Fazer upload do APK gerado
+      uses: actions/upload-artifact@v4
+      with:
+        name: minelauncher2-release-apk
+        path: app/build/outputs/apk/release/*.apk
