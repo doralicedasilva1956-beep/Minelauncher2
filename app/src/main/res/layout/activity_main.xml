@@ -14,7 +14,7 @@
         android:textColor="#FFFFFF"
         android:textSize="28sp"
         android:textStyle="bold"
-        android:layout_marginBottom="30dp"/>
+        android:layout_bottom="30dp"/>
 
     <EditText
         android:id="@+id/editUsername"
@@ -23,7 +23,25 @@
         android:hint="Seu Nome (Login Offline)"
         android:textColorHint="#888888"
         android:textColor="#FFFFFF"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginBottom="15dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Escolha a Versão do Java:"
+        android:textColor="#AAAAAA"
+        android:textSize="14sp"
+        android:layout_gravity="start"
+        android:layout_marginBottom="5dp"/>
+
+    <!-- Menu de escolha de versão -->
+    <Spinner
+        android:id="@+id/spinnerVersoes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#222222"
+        android:padding="10dp"
+        android:layout_marginBottom="30dp"/>
 
     <Button
         android:id="@+id/btnJogar"
