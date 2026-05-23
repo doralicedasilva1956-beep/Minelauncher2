@@ -4,7 +4,6 @@ on:
   push:
     branches: [ "main" ]
 
-# Permissões necessárias para o robô conseguir criar a página de Release
 permissions:
   contents: write
 
@@ -27,34 +26,34 @@ jobs:
       with:
         log-accepted-android-sdk-licenses: true
 
-    - name: Instalar NDK e CMake (Para o C++)
+    - name: Instalar NDK e CMake específicos
       run: |
         sdkmanager --install "ndk;25.1.8937393" "cmake;3.22.1"
 
-    - name: Criar arquivos do Gradle (Caso faltem)
+    - name: Instalar Gradle Wrapper automaticamente
       run: |
         gradle wrapper --gradle-version 8.2
 
     - name: Dar permissão de execução ao Gradle
       run: chmod +x ./gradlew
 
-    - name: Compilar o Aplicativo (Modo Debug/Release de teste)
+    - name: Compilar o Aplicativo em Modo Debug
       run: ./gradlew assembleDebug
 
-    - name: Criar a Tag da Release automaticamente
+    - name: Criar Tag Automática para Release
       id: criar_tag
       run: echo "tag_name=v1.0.${{ github.run_number }}" >> $GITHUB_OUTPUT
 
-    - name: Criar a página de Release e postar o APK
+    - name: Publicar Release Oficial com APK
       uses: softprops/action-gh-release@v2
       with:
         tag_name: ${{ steps.criar_tag.outputs.tag_name }}
-        name: Minelauncher2 Atualização #${{ github.run_number }}
+        name: Minelauncher2 v1.0.${{ github.run_number }}
         body: |
-          🚀 Nova versão do Minelauncher2 gerada automaticamente!
-          - Suporte para arquitetura 32-bits (`armeabi-v7a`)
-          - Base em Kotlin, Java e C++ configurada.
-          - Sistema pronto para rodar em Android 8.0 ou superior.
+          🚀 Compilação automática do Minelauncher2 finalizada!
+          - Suporte a celulares ARM de 32-bits (`armeabi-v7a`).
+          - Código misto com Java, Kotlin e C++.
+          - Compatível com Android 8.0 ou superior.
         draft: false
         prerelease: false
         files: app/build/outputs/apk/debug/app-debug.apk
